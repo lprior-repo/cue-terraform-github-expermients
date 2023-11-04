@@ -10,5 +10,4 @@ jobs:
     steps:
       - name: Print issue title and body
         run: |
-          echo "Issue Title: ${{ github.event.issue.title }}"
           echo "Issue Body: ${{ github.event.issue.body }}"
