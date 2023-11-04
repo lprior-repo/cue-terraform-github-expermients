@@ -10,4 +10,29 @@ jobs:
     steps:
       - name: Print issue title and body
         run: |
-          echo "Issue Body: ${{ github.event.issue.body }}"
+          # Replace this with the actual content of issues.body
+          issue_body= ${{ github.event.issue.body }}
+          
+          # Function to extract content between markdown headers
+          extract_content() {
+            local start_line="$1"
+            local end_line="$2"
+            local content="$3"
+            echo "$content" | sed -n "/$start_line/,/$end_line/p" | sed "/$start_line/d;/$end_line/d"
+          }
+          
+          # Extract the content for each section
+          slo_name=$(extract_content "### SLO Name" "###" "$issue_body")
+          slo_description=$(extract_content "### SLO Description" "###" "$issue_body")
+          numerator_query=$(extract_content "### Numerator Query" "###" "$issue_body")
+          denominator_query=$(extract_content "### Denominator Query" "###" "$issue_body")
+          seven_day_thresholds=$(extract_content "### 7-day Thresholds" "###" "$issue_body")
+          thirty_day_thresholds=$(extract_content "### 30-day Thresholds" "###" "$issue_body")
+          
+          # Print the extracted content
+          echo "SLO Name: $slo_name"
+          echo "SLO Description: $slo_description"
+          echo "Numerator Query: $numerator_query"
+          echo "Denominator Query: $denominator_query"
+          echo "7-day Thresholds: $seven_day_thresholds"
+          echo "30-day Thresholds: $thirty_day_thresholds"
