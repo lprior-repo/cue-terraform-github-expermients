@@ -9,30 +9,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print issue title and body
-        run: |
-          # Replace this with the actual content of issues.body
-          issue_body= ${{ github.event.issue.body }}
-          
-          # Function to extract content between markdown headers
-          extract_content() {
-            local start_line="$1"
-            local end_line="$2"
-            local content="$3"
-            echo "$content" | sed -n "/$start_line/,/$end_line/p" | sed "/$start_line/d;/$end_line/d"
-          }
-          
-          # Extract the content for each section
-          slo_name=$(extract_content "### SLO Name" "###" "$issue_body")
-          slo_description=$(extract_content "### SLO Description" "###" "$issue_body")
-          numerator_query=$(extract_content "### Numerator Query" "###" "$issue_body")
-          denominator_query=$(extract_content "### Denominator Query" "###" "$issue_body")
-          seven_day_thresholds=$(extract_content "### 7-day Thresholds" "###" "$issue_body")
-          thirty_day_thresholds=$(extract_content "### 30-day Thresholds" "###" "$issue_body")
-          
-          # Print the extracted content
-          echo "SLO Name: $slo_name"
-          echo "SLO Description: $slo_description"
-          echo "Numerator Query: $numerator_query"
-          echo "Denominator Query: $denominator_query"
-          echo "7-day Thresholds: $seven_day_thresholds"
-          echo "30-day Thresholds: $thirty_day_thresholds"
+        run: | 
+        
+          # Use grep to extract lines and awk to print the second part of the line after the colon
+          SLO_NAME=$(echo "${{ github.event.issue.body }}" | grep '### SLO Name' | awk -F '### SLO Name' '{print $2}')
+          SLO_DESCRIPTION=$(echo "${{ github.event.issue.body }}" | grep '### SLO Description' | awk -F '### SLO Description' '{print $2}')
+          NUMERATOR_QUERY=$(echo "${{ github.event.issue.body }}" | grep '### Numerator Query' | awk -F '### Numerator Query' '{print $2}')
+          DENOMINATOR_QUERY=$(echo "${{ github.event.issue.body }}" | grep '### Denominator Query' | awk -F '### Denominator Query' '{print $2}')
+          SEVEN_DAY_THRESHOLDS=$(echo "${{ github.event.issue.body }}" | grep '### 7-day Thresholds' | awk -F '### 7-day Thresholds' '{print $2}')
+          THIRTY_DAY_THRESHOLDS=$(echo "${{ github.event.issue.body }}" | grep '### 30-day Thresholds' | awk -F '### 30-day Thresholds' '{print $2}')
+          TAGS=$(echo "${{ github.event.issue.body }}" | grep '- \[X\]' | awk -F '- \[X\]' '{print $2}')
+
+          # Print extracted values
+          echo "SLO Name: $SLO_NAME"
+          echo "SLO Description: $SLO_DESCRIPTION"
+          echo "Numerator Query: $NUMERATOR_QUERY"
+          echo "Denominator Query: $DENOMINATOR_QUERY"
+          echo "7-day Thresholds: $SEVEN_DAY_THRESHOLDS"
+          echo "30-day Thresholds: $THIRTY_DAY_THRESHOLDS"
+          echo "Tags: $TAGS"
