@@ -2,8 +2,6 @@ name: SLO Configuration
 description: Configure a Service Level Objective in Datadog
 title: "[SLO]: "
 labels: ["slo", "configuration"]
-assignees:
-  - datadog-configurator
 body:
   - type: input
     id: slo-name
