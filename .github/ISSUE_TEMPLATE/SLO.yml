@@ -5,10 +5,6 @@ labels: ["slo", "configuration"]
 assignees:
   - datadog-configurator
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Please fill out the details of the Service Level Objective you want to configure in Datadog.
   - type: input
     id: slo-name
     attributes:
@@ -17,15 +13,13 @@ body:
       placeholder: Example Metric SLO
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: slo-description
     attributes:
       label: SLO Description
-      description: Provide a brief description of the SLO.
-      placeholder: My custom metric SLO
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: numerator-query
     attributes:
       label: Numerator Query
@@ -33,7 +27,7 @@ body:
       placeholder: sum:my.custom.count.metric{type:good_events}.as_count()
     validations:
       required: true
-  - type: textarea
+  - type: input
     id: denominator-query
     attributes:
       label: Denominator Query
@@ -65,14 +59,3 @@ body:
       options:
         - label: foo:bar
         - label: baz
-  - type: checkboxes
-    id: terms
-    attributes:
-      label: Confirmation
-      description: Confirm that the information provided is correct and ready to be configured in Datadog.
-      options:
-        - label: I confirm that the above details are correct and should be applied to the Datadog SLO configuration.
-          required: true
-  - type: markdown
-    attributes:
-      value: "Thanks for completing our form!"
