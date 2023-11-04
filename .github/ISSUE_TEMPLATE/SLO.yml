@@ -1,0 +1,78 @@
+name: SLO Configuration
+description: Configure a Service Level Objective in Datadog
+title: "[SLO]: "
+labels: ["slo", "configuration"]
+assignees:
+  - datadog-configurator
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the details of the Service Level Objective you want to configure in Datadog.
+  - type: input
+    id: slo-name
+    attributes:
+      label: SLO Name
+      description: What is the name of the SLO?
+      placeholder: Example Metric SLO
+    validations:
+      required: true
+  - type: textarea
+    id: slo-description
+    attributes:
+      label: SLO Description
+      description: Provide a brief description of the SLO.
+      placeholder: My custom metric SLO
+    validations:
+      required: true
+  - type: textarea
+    id: numerator-query
+    attributes:
+      label: Numerator Query
+      description: Enter the numerator for the SLO query.
+      placeholder: sum:my.custom.count.metric{type:good_events}.as_count()
+    validations:
+      required: true
+  - type: textarea
+    id: denominator-query
+    attributes:
+      label: Denominator Query
+      description: Enter the denominator for the SLO query.
+      placeholder: sum:my.custom.count.metric{*}.as_count()
+    validations:
+      required: true
+  - type: input
+    id: thresholds-7d
+    attributes:
+      label: 7-day Thresholds
+      description: Enter the target and warning thresholds for a 7-day timeframe.
+      placeholder: "Target: 99.9, Warning: 99.99"
+    validations:
+      required: true
+  - type: input
+    id: thresholds-30d
+    attributes:
+      label: 30-day Thresholds
+      description: Enter the target and warning thresholds for a 30-day timeframe.
+      placeholder: "Target: 99.9, Warning: 99.99"
+    validations:
+      required: true
+  - type: checkboxes
+    id: tags
+    attributes:
+      label: Tags
+      description: Select the tags that apply to this SLO.
+      options:
+        - label: foo:bar
+        - label: baz
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Confirmation
+      description: Confirm that the information provided is correct and ready to be configured in Datadog.
+      options:
+        - label: I confirm that the above details are correct and should be applied to the Datadog SLO configuration.
+          required: true
+  - type: markdown
+    attributes:
+      value: "Thanks for completing our form!"
