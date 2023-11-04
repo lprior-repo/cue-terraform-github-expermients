@@ -1,0 +1,14 @@
+name: Datadog SLO Configuration
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  print-issue-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print issue title and body
+        run: |
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue Body: ${{ github.event.issue.body }}"
