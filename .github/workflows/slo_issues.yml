@@ -30,6 +30,6 @@ jobs:
         run: go run main.go slo.txt
 
       - name: Echo TF Code
-        run: echo slo.tf
+        run: cat slo.tf
 
       
