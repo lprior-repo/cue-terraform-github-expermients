@@ -11,4 +11,13 @@ jobs:
       - name: File Run
         run: |
           echo "${{ github.event.issue.body }}" >> slo.txt
-          cat slo.txt
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v4
+
+      - name: Run Go Code
+        run: |
+          go run main.go slo.txt
