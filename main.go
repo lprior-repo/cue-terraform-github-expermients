@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+  "text/template"
 	"strings"
 )
 
@@ -78,8 +79,22 @@ func main() {
 			}
 		}
 	}
+  
+  	// Parse the template file.
+	tmpl, err := template.ParseFiles("slo.tmpl")
+	if err != nil {
+		fmt.Println("error parsing template file:", err)
+	}
 
-	// Output the struct to verify
-	fmt.Printf("%+v\n", slo)
+	// Execute the template and write the output to a file.
+	file, err = os.Create("slo.tf")
+	if err != nil {
+		fmt.Println("error creating Terraform file:", err)
+	}
+	defer file.Close()
+
+	if err := tmpl.Execute(file, slo); err != nil {
+		fmt.Println("error executing template:", err)
+	}
 }
 

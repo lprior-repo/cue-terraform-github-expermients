@@ -1,0 +1,24 @@
+resource "datadog_service_level_objective" "{{ .Name }}" {
+  name        = "{{ .Name }}"
+  type        = "metric"
+  description = "{{ .Description }}"
+  query {
+    numerator   = "{{ .NumeratorQuery }}"
+    denominator = "{{ .DenominatorQuery }}"
+  }
+
+  thresholds {
+    timeframe = "7d"
+    target    = {{ .SevenDayThresh }}
+    warning   = {{ .SevenDayThresh }}
+  }
+
+  thresholds {
+    timeframe = "30d"
+    target    = {{ .ThirtyDayThresh }}
+    warning   = {{ .ThirtyDayThresh }}
+  }
+
+  tags = ["foo:bar", "baz"]
+}
+
