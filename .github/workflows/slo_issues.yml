@@ -3,6 +3,9 @@ name: Datadog SLO Configuration
 on:
   issues:
     types: [opened, edited]
+  push:
+    branches:
+      - '**'
 
 jobs:
   make_file:
