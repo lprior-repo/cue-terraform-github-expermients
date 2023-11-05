@@ -32,4 +32,28 @@ jobs:
       - name: Echo TF Code
         run: cat slo.tf
 
+      - name: Configure Git
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Create Pull Request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Create a new branch
+          git checkout -b auto-generated-slo-tf-$(date +%s)
+          git add slo.tf
+          git commit -m "Auto-generated slo.tf file"
+          git push origin auto-generated-slo-tf-$(date +%s)
+
+          # Install GitHub CLI
+          curl -sSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          sudo apt update
+          sudo apt install gh
+
+          # Create a pull request
+          gh pr create --title "Auto-generated slo.tf" --body "This is an auto-generated PR with the slo.tf file" --head auto-generated-slo-tf-$(date +%s) --base main
+
       
