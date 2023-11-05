@@ -5,26 +5,10 @@ on:
     types: [opened, edited]
 
 jobs:
-  print-issue-data:
+  make_file:
     runs-on: ubuntu-latest
     steps:
-      - name: Print issue title and body
-        run: | 
-        
-          # Use grep to extract lines and awk to print the second part of the line after the colon
-          SLO_NAME=$(echo "${{ github.event.issue.body }}" | grep '### SLO Name' | awk -F '### SLO Name' '{print $2}')
-          SLO_DESCRIPTION=$(echo "${{ github.event.issue.body }}" | grep '### SLO Description' | awk -F '### SLO Description' '{print $2}')
-          NUMERATOR_QUERY=$(echo "${{ github.event.issue.body }}" | grep '### Numerator Query' | awk -F '### Numerator Query' '{print $2}')
-          DENOMINATOR_QUERY=$(echo "${{ github.event.issue.body }}" | grep '### Denominator Query' | awk -F '### Denominator Query' '{print $2}')
-          SEVEN_DAY_THRESHOLDS=$(echo "${{ github.event.issue.body }}" | grep '### 7-day Thresholds' | awk -F '### 7-day Thresholds' '{print $2}')
-          THIRTY_DAY_THRESHOLDS=$(echo "${{ github.event.issue.body }}" | grep '### 30-day Thresholds' | awk -F '### 30-day Thresholds' '{print $2}')
-          TAGS=$(echo "${{ github.event.issue.body }}" | grep '- \[X\]' | awk -F '- \[X\]' '{print $2}')
-
-          # Print extracted values
-          echo "SLO Name: $SLO_NAME"
-          echo "SLO Description: $SLO_DESCRIPTION"
-          echo "Numerator Query: $NUMERATOR_QUERY"
-          echo "Denominator Query: $DENOMINATOR_QUERY"
-          echo "7-day Thresholds: $SEVEN_DAY_THRESHOLDS"
-          echo "30-day Thresholds: $THIRTY_DAY_THRESHOLDS"
-          echo "Tags: $TAGS"
+      - name:
+        run: |
+          echo "${{ github.event.issue.body }}" >> slo.txt
+          cat slo.txt
