@@ -11,18 +11,17 @@ jobs:
   make_file:
     runs-on: ubuntu-latest
     steps:
-      - name: File Run
-        run: |
-          echo "${{ github.event.issue.body }}" >> slo.txt
-
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Create SLO File
+        run: |
+          echo "${{ github.event.issue.body }}" > slo.txt
 
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version: '^1.21.2'
+          go-version: '1.21.3'
 
       - name: Run Go Code
-        run: |
-          go run main.go slo.txt
+        run: go run main.go slo.txt
