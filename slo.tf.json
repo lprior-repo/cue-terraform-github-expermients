@@ -1,0 +1,29 @@
+{
+  "resource": {
+    "datadog_service_level_objective": {
+      "bar": {
+        "name": "Example Monitor SLO",
+        "type": "monitor",
+        "description": "My custom monitor SLO",
+        "monitor_ids": [1, 2, 3],
+        "thresholds": [
+          {
+            "timeframe": "7d",
+            "target": 99.9,
+            "warning": 99.99
+          },
+          {
+            "timeframe": "30d",
+            "target": 99.9,
+            "warning": 99.99
+          }
+        ],
+        "timeframe": "30d",
+        "target_threshold": 99.9,
+        "warning_threshold": 99.99,
+        "tags": ["foo:bar", "baz"]
+      }
+    }
+  }
+}
+
