@@ -1,22 +1,22 @@
-resource "datadog_service_level_objective" "SLO 2" {
-  name        = "SLO 2"
+resource "datadog_service_level_objective" "" {
+  name        = ""
   type        = "metric"
-  description = "Fancy"
+  description = ""
   query {
-    numerator   = "blah balh"
-    denominator = "blah blah"
+    numerator   = ""
+    denominator = ""
   }
 
   thresholds {
     timeframe = "7d"
-    target    = 99.9
-    warning   = 99.9
+    target    = 
+    warning   = 
   }
 
   thresholds {
     timeframe = "30d"
-    target    = 99.9
-    warning   = 99.9
+    target    = 
+    warning   = 
   }
 
   tags = ["foo:bar", "baz"]
